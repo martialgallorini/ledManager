@@ -24,19 +24,20 @@ public:
     void closeConnection();
 
     bool sendCommand(QByteArray command);
-    QByteArray sendQuery(QByteArray query);
+    bool sendQuery(QByteArray query);
 
     int isConnected();
     
 signals:
     void sigConnected();
     void sigDisconnected();
+    void sigDataReceived(QByteArray data);
 
 public slots:
     void connected();
     void disconnected();
     void keepAlive();
-//    void readyRead();
+    void readyRead();
 
 private:
     QTcpSocket *socket;

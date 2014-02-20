@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="journalTab">
      <attribute name="title">
@@ -1561,14 +1561,14 @@
      <widget class="QPushButton" name="pushButton">
       <property name="geometry">
        <rect>
-        <x>345</x>
-        <y>320</y>
-        <width>114</width>
+        <x>260</x>
+        <y>310</y>
+        <width>251</width>
         <height>32</height>
        </rect>
       </property>
       <property name="text">
-       <string>PushButton</string>
+       <string>Test TCP Receive</string>
       </property>
      </widget>
     </widget>

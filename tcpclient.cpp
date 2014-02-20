@@ -8,6 +8,7 @@ TCPClient::TCPClient(QObject *parent) :
     socket = new QTcpSocket(this);
     connect(socket, SIGNAL(connected()), this, SLOT(connected()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
+    connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
     timer = new QTimer(this);
     timeout = 240000; // timeout in milliseconds
@@ -59,23 +60,20 @@ bool TCPClient::sendCommand(QByteArray command)
     return true;
 }
 
-QByteArray TCPClient::sendQuery(QByteArray query)
+bool TCPClient::sendQuery(QByteArray query)
 {
     if (socket->state() != QAbstractSocket::ConnectedState)
     {
         qWarning() << "Can't send command : not connected !";
-        return QByteArray("ERR_NOT_CONNECTED");
+        return false;
     }
+    socket->readAll(); // purge cache
     if(socket->write(query))
     {
-        if(socket->waitForBytesWritten(2000) && socket->waitForReadyRead((2000)))
-        {
-            timer->start(timeout);
-            return socket->readAll();
-        }
+        return true;
     }
     qWarning() << "Warning : problem sending query !";
-    return QByteArray("ERR_SEND_QUERY");
+    return false;
 }
 
 int TCPClient::isConnected()
@@ -109,5 +107,13 @@ void TCPClient::disconnected()
 void TCPClient::keepAlive()
 {
     sendCommand("?\n");
+}
+
+void TCPClient::readyRead()
+{
+   QByteArray data;
+   data = socket->readAll();
+   qDebug() << "Device answered : " << data;
+   emit sigDataReceived(data);
 }
 

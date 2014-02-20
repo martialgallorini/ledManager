@@ -203,7 +203,7 @@ void MainWindow::on_ledIntensity_sliderMoved(int position)
 
 void MainWindow::on_pushButton_clicked()
 {
-    qDebug() << epl->getStoredMessage(1);
+    epl->getStoredMessage(1);
 }
 
 void MainWindow::udpDatagramReceived(QString datagram)

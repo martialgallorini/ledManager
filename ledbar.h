@@ -20,10 +20,10 @@ public:
     void clear();
     void authorize(int bank);
     void brightness(int value);
-    QString getStoredMessage(int bank);
+    bool getStoredMessage(int bank);
 
     void sendMessage(QString msg);
-    QString sendQuery(QString msg);
+    bool sendQuery(QString msg);
 
 signals:
 
