@@ -142,7 +142,15 @@ void MainWindow::on_display_clicked()
 
 void MainWindow::on_save_clicked()
 {
-    epl->sendMessage(composeMessage());
+
+    if (!ui->msgTable->selectedItems().isEmpty())
+    {
+        epl->sendMessage(composeMessage());
+    }
+    else
+    {
+        qDebug() << "Sélectionnez une mémoire !";
+    }
 }
 
 void MainWindow::on_connect_clicked()
