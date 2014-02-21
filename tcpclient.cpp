@@ -9,6 +9,7 @@ TCPClient::TCPClient(QObject *parent) :
     connect(socket, SIGNAL(connected()), this, SLOT(connected()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+    connect(socket, SIGNAL(bytesWritten(qint64)), this, SLOT(bytesWritten(qint64)));
 
     timer = new QTimer(this);
     timeout = 240000; // timeout in milliseconds
@@ -67,13 +68,11 @@ bool TCPClient::sendQuery(QByteArray query)
         qWarning() << "Can't send command : not connected !";
         return false;
     }
-    socket->readAll(); // purge cache
-    if(socket->write(query))
-    {
-        return true;
-    }
-    qWarning() << "Warning : problem sending query !";
-    return false;
+    else
+     {
+      socket->write(query);
+      return true;
+     }
 }
 
 int TCPClient::isConnected()
@@ -109,11 +108,24 @@ void TCPClient::keepAlive()
     sendCommand("?\n");
 }
 
+void TCPClient::bytesWritten(qint64 bytes)
+{
+    qDebug() << "\nSent " << bytes << "bytes";
+}
+
 void TCPClient::readyRead()
 {
-   QByteArray data;
-   data = socket->readAll();
-   qDebug() << "Device answered : " << data;
-   emit sigDataReceived(data);
+//    if(!socket->waitForBytesWritten(2000))
+//   {
+       timer->start(timeout);
+       qDebug() << "\nReceived " << socket->bytesAvailable() << "bytes";
+       QString resp;
+       while(socket->bytesAvailable() > 0)
+       {
+            resp.append(socket->readLine());
+       }
+       qDebug() <<  "\nReading response : " << resp.toUtf8();
+       qDebug() << "\n" << socket->bytesAvailable() << "bytes left to read";
+//   }
 }
 

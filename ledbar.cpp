@@ -25,16 +25,23 @@ bool ledBar::isConnected()
     return eplClient->isConnected();
 }
 
-bool ledBar::getStoredMessage(int bank)
+void ledBar::getStoredMessage(int bank)
 {
+//    QString message;
+//    QByteArray msg;
+
+    QByteArray message;
+
     if (bank < 10)
     {
-        return sendQuery("COP0" + QString::number(bank) + "\r\n");
+        message.append("COP0" + QString::number(bank) + "\r\n");
     }
     else
     {
-        return sendQuery("COP" + QString::number(bank) + "\r\n");
+        message.append("COP" + QString::number(bank) + "\r\n");
     }
+//    msg.append(message.toLatin1());
+    sendQuery(message);
 }
 
 

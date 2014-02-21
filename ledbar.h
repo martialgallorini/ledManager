@@ -20,7 +20,7 @@ public:
     void clear();
     void authorize(int bank);
     void brightness(int value);
-    bool getStoredMessage(int bank);
+    void getStoredMessage(int bank);
 
     void sendMessage(QString msg);
     bool sendQuery(QString msg);
