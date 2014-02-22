@@ -6,6 +6,7 @@ ledBar::ledBar(QObject *parent) :
     eplClient = new TCPClient(this);
     connect(eplClient, SIGNAL(sigConnected()), this, SLOT(led_connected()));
     connect(eplClient, SIGNAL(sigDisconnected()), this, SLOT(led_disconnected()));
+    //connect(eplClient, SIGNAL(sigTcpDataReceived(QByteArray)), this, SLOT(tcpResponse(QByteArray)));
 }
 
 // ***************** METHODS ********************** //
@@ -25,25 +26,19 @@ bool ledBar::isConnected()
     return eplClient->isConnected();
 }
 
-void ledBar::getStoredMessage(int bank)
+QString ledBar::getStoredMessage(int bank)
 {
-//    QString message;
-//    QByteArray msg;
-
-    QByteArray message;
+    QString query;
 
     if (bank < 10)
     {
-        message.append("COP0" + QString::number(bank) + "\r\n");
+        return sendQuery("COP0" + QString::number(bank) + "\r\n");
     }
     else
     {
-        message.append("COP" + QString::number(bank) + "\r\n");
+        return sendQuery("COP" + QString::number(bank) + "\r\n");
     }
-//    msg.append(message.toLatin1());
-    sendQuery(message);
 }
-
 
 void ledBar::freeze()
 {
@@ -74,16 +69,12 @@ void ledBar::brightness(int value)
 
 void ledBar::sendMessage(QString msg)
 {
-    QByteArray text;
-    text.append(msg.toLatin1());
-    eplClient->sendCommand(text);
+    eplClient->sendCommand(msg);
 }
 
-bool ledBar::sendQuery(QString msg)
+QString ledBar::sendQuery(QString msg)
 {
-    QByteArray text;
-    text.append(msg.toLatin1());
-    return eplClient->sendQuery(text);
+    return eplClient->sendQuery(msg);
 }
 
 void ledBar::authorize(int bank)
@@ -92,7 +83,7 @@ void ledBar::authorize(int bank)
 }
 
 
-// ***************** SIGNALS ********************** //
+// ***************** SLOTS ********************** //
 
 void ledBar::led_connected()
 {

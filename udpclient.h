@@ -13,7 +13,7 @@ public:
     bool bind(qint16 port);
 
 signals:
-    void sigDataReceived(QString data);
+    void sigUdpDataReceived(QString data);
 
 public slots:
     void readyRead();

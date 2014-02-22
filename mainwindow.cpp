@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     epl = new ledBar(this);
     udpReceiver = new UDPClient(this);
-    connect(udpReceiver, SIGNAL(sigDataReceived(QString)), this, SLOT(udpDatagramReceived(QString)));
+    connect(udpReceiver, SIGNAL(sigUdpDataReceived(QString)), this, SLOT(udpDatagramReceived(QString)));
 }
 
 MainWindow::~MainWindow()
@@ -127,7 +127,7 @@ QString MainWindow::getMsgBank()
 QString MainWindow::composeMessage()
 {
     QString message;
-    message = getMsgBank() + getFont() + getSpeed() + getEffect() + getInAnim() + ui->msgTable->currentItem()->text() + getTimeStop() + getOutAnim() + "\r\n";
+    message = getMsgBank() + getFont() + getEffect() + getSpeed() + getInAnim() + "/ " + ui->msgTable->currentItem()->text() + " /" + getTimeStop() + getOutAnim() + "\r\n";
     return message;
 }
 
@@ -170,18 +170,18 @@ void MainWindow::on_connect_clicked()
     {
         epl->connection(ui->custom_ip->text(), 23);
     }
-//    if (epl->isConnected())
-//    {
-//        //ui->msgTable->itemAt(1,1)->setText(epl->getStoredMessage(1));
-//        for (int i=0 ; i<10 ; i++)
-//        {
-//            QString msg;
-//            msg = epl->getStoredMessage(i+1);
-//            //msg.remove(0,10);
-//            //ui->msgTable->itemAt(1,i)->setText(epl->getStoredMessage(i+1));
-//            ui->msgTable->itemAt(1,i)->setText(msg);
-//        }
-//    }
+
+    if (epl->isConnected())
+    {
+        for (int i=0 ; i<10 ; i++)
+        {
+            QString resp;
+            resp = epl->getStoredMessage(i+1);
+            resp.remove(0, resp.indexOf("/") + 1);
+            resp.truncate(resp.lastIndexOf("/"));
+            ui->msgTable->setItem(i, 0, new QTableWidgetItem(resp));
+        }
+    }
 }
 
 void MainWindow::on_freezeMode_clicked()
@@ -207,11 +207,6 @@ void MainWindow::on_rebootDevice_clicked()
 void MainWindow::on_ledIntensity_sliderMoved(int position)
 {
     epl->brightness(position);
-}
-
-void MainWindow::on_pushButton_clicked()
-{
-    epl->getStoredMessage(1);
 }
 
 void MainWindow::udpDatagramReceived(QString datagram)

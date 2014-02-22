@@ -46,8 +46,6 @@ private slots:
 
     void on_ledIntensity_sliderMoved(int position);
 
-    void on_pushButton_clicked();
-
     void on_checkBox_stateChanged(int arg1);
 
     void udpDatagramReceived(QString datagram);

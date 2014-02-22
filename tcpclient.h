@@ -23,22 +23,23 @@ public:
     bool connection(QString _addr, int _port);
     void closeConnection();
 
-    bool sendCommand(QByteArray command);
-    bool sendQuery(QByteArray query);
+    bool sendCommand(QString command);
+    QString sendQuery(QString query);
 
     int isConnected();
     
 signals:
     void sigConnected();
     void sigDisconnected();
-    void sigDataReceived(QByteArray data);
+//    void sigUdpDataReceived(QByteArray data);
+//    void sigTcpDataReceived(QByteArray data);
 
 public slots:
     void connected();
     void disconnected();
     void keepAlive();
-    void readyRead();
-    void bytesWritten(qint64 bytes);
+//    void readyRead();
+//    void bytesWritten(qint64 bytes);
 
 private:
     QTcpSocket *socket;

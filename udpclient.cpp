@@ -35,5 +35,5 @@ void UDPClient::readyRead()
     qDebug() << "Message port: " << senderPort;
     qDebug() << "Message: " << datagram;
 
-    emit sigDataReceived(datagram);
+    emit sigUdpDataReceived(datagram);
 }
