@@ -490,7 +490,7 @@
        <bool>true</bool>
       </property>
       <attribute name="horizontalHeaderVisible">
-       <bool>false</bool>
+       <bool>true</bool>
       </attribute>
       <attribute name="horizontalHeaderCascadingSectionResizes">
        <bool>false</bool>
@@ -505,7 +505,7 @@
        <bool>true</bool>
       </attribute>
       <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
+       <bool>true</bool>
       </attribute>
       <attribute name="verticalHeaderDefaultSectionSize">
        <number>60</number>
@@ -1052,7 +1052,7 @@
        <item>
         <widget class="QPushButton" name="save">
          <property name="text">
-          <string>Stocker</string>
+          <string>Mémoriser</string>
          </property>
         </widget>
        </item>
@@ -1753,6 +1753,58 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>custom_ip</tabstop>
+  <tabstop>inAnim</tabstop>
+  <tabstop>outAnim</tabstop>
+  <tabstop>font</tabstop>
+  <tabstop>stopTime</tabstop>
+  <tabstop>animSpeed</tabstop>
+  <tabstop>effect</tabstop>
+  <tabstop>blinkTime</tabstop>
+  <tabstop>displayZoneNumber</tabstop>
+  <tabstop>repeat</tabstop>
+  <tabstop>msgTable</tabstop>
+  <tabstop>fromMTime</tabstop>
+  <tabstop>fromHTime</tabstop>
+  <tabstop>toMTime</tabstop>
+  <tabstop>timeSchedule</tabstop>
+  <tabstop>toHTime</tabstop>
+  <tabstop>daySchedule</tabstop>
+  <tabstop>fromDay</tabstop>
+  <tabstop>toDay</tabstop>
+  <tabstop>fromMonth</tabstop>
+  <tabstop>toMonth</tabstop>
+  <tabstop>monthSchedule</tabstop>
+  <tabstop>clearSchedule</tabstop>
+  <tabstop>save</tabstop>
+  <tabstop>display</tabstop>
+  <tabstop>ledIntensity</tabstop>
+  <tabstop>zoneNumber</tabstop>
+  <tabstop>fromZone1</tabstop>
+  <tabstop>toZone1</tabstop>
+  <tabstop>zoneSet</tabstop>
+  <tabstop>toZone2</tabstop>
+  <tabstop>fromZone2</tabstop>
+  <tabstop>toZone3</tabstop>
+  <tabstop>fromZone3</tabstop>
+  <tabstop>toZone4</tabstop>
+  <tabstop>fromZone4</tabstop>
+  <tabstop>freezeMode</tabstop>
+  <tabstop>runMode</tabstop>
+  <tabstop>clearDevice</tabstop>
+  <tabstop>rebootDevice</tabstop>
+  <tabstop>devicePort</tabstop>
+  <tabstop>deviceIP</tabstop>
+  <tabstop>deviceMask</tabstop>
+  <tabstop>saveIP</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>triggerPort</tabstop>
+  <tabstop>triggerDisplay</tabstop>
+  <tabstop>ip</tabstop>
+  <tabstop>tabs</tabstop>
+  <tabstop>connect</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

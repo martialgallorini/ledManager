@@ -93,11 +93,6 @@ QString MainWindow::getTimeStop()
     return stopTime;
 }
 
-//QString MainWindow::getBlink()
-//{
-
-//}
-
 QString MainWindow::getEffect()
 {
     QString effect;
@@ -132,24 +127,43 @@ QString MainWindow::composeMessage()
 }
 
 
-
 // ******************* SLOTS ********************* //
 
 void MainWindow::on_display_clicked()
 {
-    epl->authorize(ui->msgTable->currentRow() + 1);
+    if (epl->isConnected())
+    {
+        if (!ui->msgTable->selectedItems().isEmpty())
+        {
+            epl->authorize(ui->msgTable->currentRow() + 1);
+        }
+        else
+        {
+            ui->statusBar->showMessage("Action impossible : sélectionnez une mémoire !", 5000);
+        }
+    }
+    else
+    {
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
+    }
 }
 
 void MainWindow::on_save_clicked()
 {
-
-    if (!ui->msgTable->selectedItems().isEmpty())
+    if (epl->isConnected())
     {
-        epl->sendMessage(composeMessage());
+        if (!ui->msgTable->selectedItems().isEmpty())
+        {
+            epl->sendMessage(composeMessage());
+        }
+        else
+        {
+            ui->statusBar->showMessage("Action impossible : sélectionnez une mémoire !", 5000);
+        }
     }
     else
     {
-        qDebug() << "Sélectionnez une mémoire !";
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
     }
 }
 
@@ -181,32 +195,72 @@ void MainWindow::on_connect_clicked()
             resp.truncate(resp.lastIndexOf("/"));
             ui->msgTable->setItem(i, 0, new QTableWidgetItem(resp));
         }
+        ui->statusBar->showMessage("Connecté au journal !", 5000);
+    }
+    else
+    {
+        ui->statusBar->showMessage("Impossible de se connecter... vérifiez vos paramètres et votre connexion réseau.", 5000);
     }
 }
 
 void MainWindow::on_freezeMode_clicked()
 {
-    epl->freeze();
+    if (epl->isConnected())
+    {
+        epl->freeze();
+    }
+    else
+    {
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
+    }
 }
 
 void MainWindow::on_runMode_clicked()
 {
-    epl->run();
+    if (epl->isConnected())
+    {
+        epl->run();
+    }
+    else
+    {
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
+    }
 }
 
 void MainWindow::on_clearDevice_clicked()
 {
-    epl->clear();
+    if (epl->isConnected())
+    {
+        epl->clear();
+    }
+    else
+    {
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
+    }
 }
 
 void MainWindow::on_rebootDevice_clicked()
 {
-    epl->reboot();
+    if (epl->isConnected())
+    {
+        epl->reboot();
+    }
+    else
+    {
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
+    }
 }
 
 void MainWindow::on_ledIntensity_sliderMoved(int position)
 {
-    epl->brightness(position);
+    if (epl->isConnected())
+    {
+        epl->brightness(position);
+    }
+    else
+    {
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
+    }
 }
 
 void MainWindow::udpDatagramReceived(QString datagram)

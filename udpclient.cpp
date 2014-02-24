@@ -5,7 +5,6 @@ UDPClient::UDPClient(QObject *parent) :
     QObject(parent)
 {
     udpSocket = new QUdpSocket(this);
-    //udpSocket->bind(QHostAddress::LocalHost, port);
     connect(udpSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 }
 

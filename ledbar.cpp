@@ -6,7 +6,6 @@ ledBar::ledBar(QObject *parent) :
     eplClient = new TCPClient(this);
     connect(eplClient, SIGNAL(sigConnected()), this, SLOT(led_connected()));
     connect(eplClient, SIGNAL(sigDisconnected()), this, SLOT(led_disconnected()));
-    //connect(eplClient, SIGNAL(sigTcpDataReceived(QByteArray)), this, SLOT(tcpResponse(QByteArray)));
 }
 
 // ***************** METHODS ********************** //

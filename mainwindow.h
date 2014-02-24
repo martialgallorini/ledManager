@@ -22,7 +22,6 @@ public:
     QString getOutAnim();
     QString getSpeed();
     QString getTimeStop();
-    //QString getBlink();
     QString getEffect();
     QString getMsgBank();
 
@@ -31,23 +30,14 @@ public:
 private slots:
 
     void on_display_clicked();
-
     void on_save_clicked();
-
     void on_connect_clicked();
-
     void on_freezeMode_clicked();
-
     void on_runMode_clicked();
-
     void on_clearDevice_clicked();
-
     void on_rebootDevice_clicked();
-
     void on_ledIntensity_sliderMoved(int position);
-
     void on_checkBox_stateChanged(int arg1);
-
     void udpDatagramReceived(QString datagram);
 
 private:

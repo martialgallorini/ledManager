@@ -8,22 +8,14 @@ TCPClient::TCPClient(QObject *parent) :
     socket = new QTcpSocket(this);
     connect(socket, SIGNAL(connected()), this, SLOT(connected()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
-//    connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()));
-//    connect(socket, SIGNAL(bytesWritten(qint64)), this, SLOT(bytesWritten(qint64)));
-
-    timer = new QTimer(this);
-    timeout = 240000; // timeout in milliseconds
-    connect(timer, SIGNAL(timeout()), this, SLOT(keepAlive()));
 }
 
 TCPClient::~TCPClient()
 {
     if (socket->state() == QAbstractSocket::ConnectedState)
     {
-        qDebug() << "closing connexion before destruction from : " << addr << " on port " << port;
         socket->abort();
     }
-    qDebug() << "deleting socket...";
     delete socket;
 }
 
@@ -51,13 +43,11 @@ bool TCPClient::sendCommand(QString command)
     }
     if(socket->write(command.toLatin1()))
     {
-        qDebug() << "sending command : " << command;
         if(socket->waitForBytesWritten(2000) && socket->waitForReadyRead((2000)))
         {
             socket->readAll();
         }
     }
-    timer->start(timeout);
     return true;
 }
 
@@ -69,21 +59,21 @@ QString TCPClient::sendQuery(QString query)
     }
     else
     {
+        while (socket->bytesAvailable() > 0) // purge socket buffer
+        {
+            socket->readAll();
+        }
         socket->write(query.toLatin1());
-        timer->start(timeout);
     }
 
     QString resp;
-    if(socket->waitForReadyRead(2000))
+    if(socket->waitForBytesWritten(2000) && socket->waitForReadyRead(2000))
     {
-      qDebug() << "\nReceived " << socket->bytesAvailable() << "bytes";
-      while(socket->bytesAvailable() > 0)
+      while(socket->bytesAvailable() > 0 || !resp.contains("@CV"))
       {
-           resp.append(socket->readLine());
+           resp.append(QString::fromLatin1(socket->readLine()));
       }
-      qDebug() <<  "\nReading response : " << resp.toUtf8();
-      qDebug() << "\n" << socket->bytesAvailable() << "bytes left to read";
-      return resp.toUtf8();
+      return resp;
     }
     else
     {
@@ -106,12 +96,13 @@ void TCPClient::closeConnection()
 
 void TCPClient::connected()
 {
-    qDebug() << "Connected to : " << addr << " on port " << port;
     if(socket->waitForReadyRead((2000)))
     {
-        socket->readAll();
+        while (socket->bytesAvailable() > 0)
+        {
+            socket->readAll();
+        }
     }
-    timer->start(timeout);
     emit sigConnected();
 }
 
@@ -119,35 +110,3 @@ void TCPClient::disconnected()
 {
     emit sigDisconnected();
 }
-
-void TCPClient::keepAlive()
-{
-    sendCommand("?\n");
-}
-
-//void TCPClient::bytesWritten(qint64 bytes)
-//{
-//    qDebug() << "\nSent " << bytes << "bytes";
-//}
-
-//void TCPClient::readyRead()
-//{
-//    if(socket->waitForReadyRead(2000))
-//    {
-//       timer->start(timeout);
-//       qDebug() << "\nReceived " << socket->bytesAvailable() << "bytes";
-//       QString resp;
-//       while(socket->bytesAvailable() > 0)
-//       {
-//            resp.append(socket->readLine());
-//       }
-//       qDebug() <<  "\nReading response : " << resp.toUtf8();
-//       qDebug() << "\n" << socket->bytesAvailable() << "bytes left to read";
-//       emit sigTcpDataReceived(resp.toUtf8());
-//    }
-//    else
-//    {
-//        qWarning() << "Waiting for data to read timed out. No data received !";
-//    }
-//}
-
