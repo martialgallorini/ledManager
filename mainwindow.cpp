@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     epl = new ledBar(this);
     udpReceiver = new UDPClient(this);
     connect(udpReceiver, SIGNAL(sigUdpDataReceived(QString)), this, SLOT(udpDatagramReceived(QString)));
+    connect(epl, SIGNAL(sigLedConnected()), this, SLOT(eplConnected()));
+    connect(epl, SIGNAL(sigLedDisconnected()), this, SLOT(eplDisconnected()));
 }
 
 MainWindow::~MainWindow()
@@ -144,7 +146,7 @@ void MainWindow::on_display_clicked()
     }
     else
     {
-        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
     }
 }
 
@@ -163,43 +165,60 @@ void MainWindow::on_save_clicked()
     }
     else
     {
-        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
     }
 }
 
 void MainWindow::on_connect_clicked()
 {
-    if (ui->custom_ip->text() == "")
+    if (ui->connect->isChecked())
     {
-        switch (ui->ip->currentIndex())
+        if (ui->custom_ip->text() == "")
         {
-        case 0: epl->connection("192.168.5.54", 23); break;
-        case 1: epl->connection("192.168.5.53", 23); break;
-        case 2: epl->connection("192.168.5.52", 23); break;
-        case 3: epl->connection("192.168.5.51", 23); break;
-        case 4: epl->connection("192.168.5.50", 23); break;
+            switch (ui->ip->currentIndex())
+            {
+            case 0: epl->connection("192.168.5.54", 23); break;
+            case 1: epl->connection("192.168.5.53", 23); break;
+            case 2: epl->connection("192.168.5.52", 23); break;
+            case 3: epl->connection("192.168.5.51", 23); break;
+            case 4: epl->connection("192.168.5.50", 23); break;
+            }
         }
-    }
-    else
-    {
-        epl->connection(ui->custom_ip->text(), 23);
-    }
+        else
+        {
+            epl->connection(ui->custom_ip->text(), 23);
+        }
 
-    if (epl->isConnected())
-    {
-        for (int i=0 ; i<10 ; i++)
+        if (epl->isConnected())
         {
-            QString resp;
-            resp = epl->getStoredMessage(i+1);
-            resp.remove(0, resp.indexOf("/") + 1);
-            resp.truncate(resp.lastIndexOf("/"));
-            ui->msgTable->setItem(i, 0, new QTableWidgetItem(resp));
+            for (int i=0 ; i<10 ; i++)
+            {
+                QString resp;
+                resp = epl->getStoredMessage(i+1);
+                resp.remove(0, resp.indexOf("/") + 1);
+                resp.truncate(resp.lastIndexOf("/"));
+                ui->msgTable->setItem(i, 0, new QTableWidgetItem(resp));
+            }
+            ui->ip->setEnabled(false);
+            ui->custom_ip->setEnabled(false);
+            ui->connect->setChecked(true);
+            ui->connect->setText("Déconnecter");
+            ui->statusBar->showMessage("Connecté au journal !", 5000);
         }
-        ui->statusBar->showMessage("Connecté au journal !", 5000);
+        else
+        {
+            ui->connect->setChecked(false);
+            ui->statusBar->showMessage("Impossible de se connecter... vérifiez vos paramètres et votre connexion réseau.", 5000);
+        }
     }
     else
     {
-        ui->statusBar->showMessage("Impossible de se connecter... vérifiez vos paramètres et votre connexion réseau.", 5000);
+        epl->closeConnection();
+        ui->ip->setEnabled(true);
+        ui->custom_ip->setEnabled(true);
+        ui->connect->setChecked(false);
+        ui->connect->setText("Connecter");
+        ui->statusBar->showMessage("Journal déconnecté !", 5000);
     }
 }
 
@@ -211,7 +230,7 @@ void MainWindow::on_freezeMode_clicked()
     }
     else
     {
-        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
     }
 }
 
@@ -223,7 +242,7 @@ void MainWindow::on_runMode_clicked()
     }
     else
     {
-        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
     }
 }
 
@@ -235,7 +254,7 @@ void MainWindow::on_clearDevice_clicked()
     }
     else
     {
-        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
     }
 }
 
@@ -247,7 +266,7 @@ void MainWindow::on_rebootDevice_clicked()
     }
     else
     {
-        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
     }
 }
 
@@ -259,14 +278,8 @@ void MainWindow::on_ledIntensity_sliderMoved(int position)
     }
     else
     {
-        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter' !", 5000);
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
     }
-}
-
-void MainWindow::udpDatagramReceived(QString datagram)
-{
-    int value = datagram.remove(0,ui->triggerDisplay->text().size()).toInt();
-    epl->authorize(value);
 }
 
 void MainWindow::on_checkBox_stateChanged(int arg1)
@@ -282,5 +295,44 @@ void MainWindow::on_checkBox_stateChanged(int arg1)
         QString port = ui->triggerPort->text();
         udpReceiver->bind(port.toInt());
         qDebug() << "UDP socket bind to Localhost on port " << port.toInt();
+    }
+}
+
+// ****************** SLOTS ********************* //
+
+void MainWindow::udpDatagramReceived(QString datagram)
+{
+    int value = datagram.remove(0,ui->triggerDisplay->text().size()).toInt();
+    epl->authorize(value);
+}
+
+void MainWindow::eplConnected()
+{
+
+}
+
+void MainWindow::eplDisconnected()
+{
+
+}
+
+void MainWindow::on_clrBank_clicked()
+{
+    if (epl->isConnected())
+    {
+        if (!ui->msgTable->selectedItems().isEmpty())
+        {
+            epl->clearBank(ui->msgTable->currentRow() + 1);
+            ui->msgTable->currentItem()->setText("");
+            epl->run();
+        }
+        else
+        {
+            ui->statusBar->showMessage("Action impossible : sélectionnez une mémoire !", 5000);
+        }
+    }
+    else
+    {
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
     }
 }

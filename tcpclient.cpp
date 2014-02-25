@@ -98,7 +98,7 @@ void TCPClient::connected()
 {
     if(socket->waitForReadyRead((2000)))
     {
-        while (socket->bytesAvailable() > 0)
+        while (socket->bytesAvailable() > 0) //purge socket buffer
         {
             socket->readAll();
         }

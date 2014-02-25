@@ -20,12 +20,15 @@ public:
     void clear();
     void authorize(int bank);
     void brightness(int value);
+    void clearBank(int bank);
     QString getStoredMessage(int bank);
 
     void sendMessage(QString msg);
     QString sendQuery(QString msg);
 
 signals:
+    void sigLedConnected();
+    void sigLedDisconnected();
 
 public slots:
     void led_connected();

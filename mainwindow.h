@@ -39,6 +39,10 @@ private slots:
     void on_ledIntensity_sliderMoved(int position);
     void on_checkBox_stateChanged(int arg1);
     void udpDatagramReceived(QString datagram);
+    void eplConnected();
+    void eplDisconnected();
+
+    void on_clrBank_clicked();
 
 private:
     Ui::MainWindow *ui;

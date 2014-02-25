@@ -81,15 +81,30 @@ void ledBar::authorize(int bank)
         sendMessage("AUT " + QString::number(bank) + "\r\n");
 }
 
+void ledBar::clearBank(int bank)
+{
+    QString msg;
+    if (bank < 10)
+    {
+        msg = "MSG0" + QString::number(bank) + " `*\r\n";
+    }
+    else
+    {
+        msg = "MSG" + QString::number(bank) + " `*\r\n";
+    }
+    sendMessage(msg);
+}
 
 // ***************** SLOTS ********************** //
 
 void ledBar::led_connected()
 {
     qDebug() << "Led bar connected !";
+    emit sigLedConnected();
 }
 
 void ledBar::led_disconnected()
 {
     qDebug() << "Led bar disconnected !";
+    emit sigLedDisconnected();
 }

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>ledManager v0.8b</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTabWidget" name="tabs">
@@ -198,7 +198,7 @@
        </property>
        <item>
         <property name="text">
-         <string>Chicago</string>
+         <string>Chicago (défaut)</string>
         </property>
        </item>
        <item>
@@ -223,7 +223,7 @@
        </item>
        <item>
         <property name="text">
-         <string>Chicago 2</string>
+         <string>Chicago (négatif)</string>
         </property>
        </item>
        <item>
@@ -243,7 +243,7 @@
        </item>
        <item>
         <property name="text">
-         <string>Chicago 5</string>
+         <string>Chicago (minuscules)</string>
         </property>
        </item>
       </widget>
@@ -853,7 +853,7 @@
       <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
-         <x>12</x>
+         <x>15</x>
          <y>60</y>
          <width>25</width>
          <height>16</height>
@@ -869,7 +869,7 @@
        </property>
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>33</x>
          <y>55</y>
          <width>111</width>
          <height>26</height>
@@ -934,7 +934,7 @@
       <widget class="QComboBox" name="toMonth">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>33</x>
          <y>80</y>
          <width>111</width>
          <height>26</height>
@@ -999,7 +999,7 @@
       <widget class="QLabel" name="label_2">
        <property name="geometry">
         <rect>
-         <x>13</x>
+         <x>16</x>
          <y>85</y>
          <width>21</width>
          <height>16</height>
@@ -1012,7 +1012,7 @@
       <widget class="QCheckBox" name="monthSchedule">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>13</x>
          <y>35</y>
          <width>116</width>
          <height>20</height>
@@ -1057,9 +1057,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="display">
+        <widget class="QPushButton" name="clrBank">
          <property name="text">
-          <string>Afficher</string>
+          <string>Effacer</string>
          </property>
         </widget>
        </item>
@@ -1076,6 +1076,13 @@
          </property>
         </spacer>
        </item>
+       <item>
+        <widget class="QPushButton" name="display">
+         <property name="text">
+          <string>Afficher</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>
@@ -1087,7 +1094,7 @@
       <property name="geometry">
        <rect>
         <x>15</x>
-        <y>265</y>
+        <y>215</y>
         <width>276</width>
         <height>22</height>
        </rect>
@@ -1103,7 +1110,7 @@
       <property name="geometry">
        <rect>
         <x>15</x>
-        <y>245</y>
+        <y>195</y>
         <width>86</width>
         <height>16</height>
        </rect>
@@ -1118,7 +1125,7 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>310</x>
+        <x>485</x>
         <y>0</y>
         <width>411</width>
         <height>231</height>
@@ -1460,7 +1467,7 @@
       </property>
       <property name="geometry">
        <rect>
-        <x>160</x>
+        <x>335</x>
         <y>5</y>
         <width>131</width>
         <height>226</height>
@@ -1745,6 +1752,9 @@
        <property name="text">
         <string>Connecter</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
@@ -1755,33 +1765,32 @@
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
   <tabstop>custom_ip</tabstop>
-  <tabstop>inAnim</tabstop>
-  <tabstop>outAnim</tabstop>
+  <tabstop>ip</tabstop>
+  <tabstop>connect</tabstop>
   <tabstop>font</tabstop>
+  <tabstop>inAnim</tabstop>
   <tabstop>stopTime</tabstop>
-  <tabstop>animSpeed</tabstop>
-  <tabstop>effect</tabstop>
   <tabstop>blinkTime</tabstop>
-  <tabstop>displayZoneNumber</tabstop>
+  <tabstop>outAnim</tabstop>
+  <tabstop>effect</tabstop>
   <tabstop>repeat</tabstop>
-  <tabstop>msgTable</tabstop>
-  <tabstop>fromMTime</tabstop>
-  <tabstop>fromHTime</tabstop>
-  <tabstop>toMTime</tabstop>
-  <tabstop>timeSchedule</tabstop>
-  <tabstop>toHTime</tabstop>
+  <tabstop>animSpeed</tabstop>
+  <tabstop>displayZoneNumber</tabstop>
+  <tabstop>monthSchedule</tabstop>
+  <tabstop>fromMonth</tabstop>
+  <tabstop>toMonth</tabstop>
   <tabstop>daySchedule</tabstop>
   <tabstop>fromDay</tabstop>
   <tabstop>toDay</tabstop>
-  <tabstop>fromMonth</tabstop>
-  <tabstop>toMonth</tabstop>
-  <tabstop>monthSchedule</tabstop>
+  <tabstop>timeSchedule</tabstop>
+  <tabstop>fromHTime</tabstop>
+  <tabstop>fromMTime</tabstop>
+  <tabstop>toHTime</tabstop>
+  <tabstop>toMTime</tabstop>
   <tabstop>clearSchedule</tabstop>
+  <tabstop>tabs</tabstop>
+  <tabstop>msgTable</tabstop>
   <tabstop>save</tabstop>
-  <tabstop>display</tabstop>
-  <tabstop>ledIntensity</tabstop>
-  <tabstop>zoneNumber</tabstop>
-  <tabstop>fromZone1</tabstop>
   <tabstop>toZone1</tabstop>
   <tabstop>zoneSet</tabstop>
   <tabstop>toZone2</tabstop>
@@ -1801,9 +1810,9 @@
   <tabstop>checkBox</tabstop>
   <tabstop>triggerPort</tabstop>
   <tabstop>triggerDisplay</tabstop>
-  <tabstop>ip</tabstop>
-  <tabstop>tabs</tabstop>
-  <tabstop>connect</tabstop>
+  <tabstop>ledIntensity</tabstop>
+  <tabstop>fromZone1</tabstop>
+  <tabstop>zoneNumber</tabstop>
  </tabstops>
  <resources/>
  <connections/>
