@@ -43,9 +43,13 @@ bool TCPClient::sendCommand(QString command)
     }
     if(socket->write(command.toLatin1()))
     {
+        QString resp;
         if(socket->waitForBytesWritten(2000) && socket->waitForReadyRead((2000)))
         {
-            socket->readAll();
+            while(socket->bytesAvailable() > 0 || (!resp.contains("@"))) // purge socket buffer
+            {
+                resp.append(socket->readLine());
+            }
         }
     }
     return true;
@@ -61,23 +65,24 @@ QString TCPClient::sendQuery(QString query)
     {
         while (socket->bytesAvailable() > 0) // purge socket buffer
         {
-            socket->readAll();
+            socket->readLine();
         }
-        socket->write(query.toLatin1());
-    }
 
-    QString resp;
-    if(socket->waitForBytesWritten(2000) && socket->waitForReadyRead(2000))
-    {
-      while(socket->bytesAvailable() > 0 || !resp.contains("@CV"))
-      {
-           resp.append(QString::fromLatin1(socket->readLine()));
-      }
-      return resp;
-    }
-    else
-    {
-           qWarning() << "Waiting for data to read timed out. Nothing to read !";
+        socket->write(query.toLatin1());
+
+        QString resp;
+        if(socket->waitForBytesWritten(2000) && socket->waitForReadyRead(2000)) // read response
+        {
+            while(socket->bytesAvailable() > 0 || (!resp.contains("@")))
+            {
+                resp.append(QString::fromLatin1(socket->readLine()));
+            }
+            return resp;
+        }
+        else
+        {
+            qWarning() << "Waiting for data to read timed out. Nothing to read !";
+        }
     }
     return QString();
 }
@@ -100,7 +105,7 @@ void TCPClient::connected()
     {
         while (socket->bytesAvailable() > 0) //purge socket buffer
         {
-            socket->readAll();
+            socket->readLine();
         }
     }
     emit sigConnected();

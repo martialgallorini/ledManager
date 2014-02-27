@@ -21,6 +21,8 @@ public:
     void authorize(int bank);
     void brightness(int value);
     void clearBank(int bank);
+    QString getStatus();
+    QString getCurrentMsgNumber();
     QString getStoredMessage(int bank);
 
     void sendMessage(QString msg);

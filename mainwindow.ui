@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ledManager v0.8b</string>
+   <string>ledManager v0.8.1b</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTabWidget" name="tabs">
@@ -55,7 +55,7 @@
         <number>9</number>
        </property>
        <property name="value">
-        <number>5</number>
+        <number>6</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -468,6 +468,9 @@
       <property name="editTriggers">
        <set>QAbstractItemView::DoubleClicked</set>
       </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>true</bool>
+      </property>
       <property name="dragDropOverwriteMode">
        <bool>false</bool>
       </property>
@@ -478,7 +481,7 @@
        <enum>QAbstractItemView::SingleSelection</enum>
       </property>
       <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
+       <enum>QAbstractItemView::SelectItems</enum>
       </property>
       <property name="showGrid">
        <bool>true</bool>

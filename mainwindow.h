@@ -24,6 +24,7 @@ public:
     QString getTimeStop();
     QString getEffect();
     QString getMsgBank();
+    void updateCurrentMsgNum();
 
     QString composeMessage();
 
@@ -41,7 +42,6 @@ private slots:
     void udpDatagramReceived(QString datagram);
     void eplConnected();
     void eplDisconnected();
-
     void on_clrBank_clicked();
 
 private:

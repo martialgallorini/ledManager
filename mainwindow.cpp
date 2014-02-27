@@ -124,6 +124,11 @@ QString MainWindow::getMsgBank()
 QString MainWindow::composeMessage()
 {
     QString message;
+//    QString msgTableText;
+//    QByteArray msg;
+//    msg.append(ui->msgTable->currentItem()->text());
+//    msgTableText.append(QString::fromRawData(ui->msgTable->currentItem()->text(), sizeof(QChar)));
+
     message = getMsgBank() + getFont() + getEffect() + getSpeed() + getInAnim() + "/ " + ui->msgTable->currentItem()->text() + " /" + getTimeStop() + getOutAnim() + "\r\n";
     return message;
 }
@@ -138,6 +143,8 @@ void MainWindow::on_display_clicked()
         if (!ui->msgTable->selectedItems().isEmpty())
         {
             epl->authorize(ui->msgTable->currentRow() + 1);
+            this->updateCurrentMsgNum();
+            ui->statusBar->showMessage("Transmission OK !", 5000);
         }
         else
         {
@@ -157,6 +164,7 @@ void MainWindow::on_save_clicked()
         if (!ui->msgTable->selectedItems().isEmpty())
         {
             epl->sendMessage(composeMessage());
+            ui->statusBar->showMessage("Transmission OK !", 5000);
         }
         else
         {
@@ -189,36 +197,16 @@ void MainWindow::on_connect_clicked()
             epl->connection(ui->custom_ip->text(), 23);
         }
 
-        if (epl->isConnected())
+        if (!epl->isConnected())
         {
-            for (int i=0 ; i<10 ; i++)
-            {
-                QString resp;
-                resp = epl->getStoredMessage(i+1);
-                resp.remove(0, resp.indexOf("/") + 1);
-                resp.truncate(resp.lastIndexOf("/"));
-                ui->msgTable->setItem(i, 0, new QTableWidgetItem(resp));
-            }
-            ui->ip->setEnabled(false);
-            ui->custom_ip->setEnabled(false);
-            ui->connect->setChecked(true);
-            ui->connect->setText("Déconnecter");
-            ui->statusBar->showMessage("Connecté au journal !", 5000);
-        }
-        else
-        {
-            ui->connect->setChecked(false);
+           ui->connect->setChecked(false);
             ui->statusBar->showMessage("Impossible de se connecter... vérifiez vos paramètres et votre connexion réseau.", 5000);
         }
+
     }
     else
     {
         epl->closeConnection();
-        ui->ip->setEnabled(true);
-        ui->custom_ip->setEnabled(true);
-        ui->connect->setChecked(false);
-        ui->connect->setText("Connecter");
-        ui->statusBar->showMessage("Journal déconnecté !", 5000);
     }
 }
 
@@ -251,6 +239,7 @@ void MainWindow::on_clearDevice_clicked()
     if (epl->isConnected())
     {
         epl->clear();
+        ui->msgTable->clearContents();
     }
     else
     {
@@ -294,8 +283,23 @@ void MainWindow::on_checkBox_stateChanged(int arg1)
         ui->groupTriggersConfig->setEnabled(true);
         QString port = ui->triggerPort->text();
         udpReceiver->bind(port.toInt());
-        qDebug() << "UDP socket bind to Localhost on port " << port.toInt();
     }
+}
+
+void MainWindow::updateCurrentMsgNum()
+{
+  QString msgNum;
+  msgNum = epl->getCurrentMsgNumber();
+
+  int msgIndex;
+  msgIndex = msgNum.toInt();
+
+  for (int i = 0; i < 10 ; i++)
+  {
+      ui->msgTable->setVerticalHeaderItem(i,new QTableWidgetItem(QString::number(i + 1)));
+  }
+
+  ui->msgTable->setVerticalHeaderItem(msgIndex - 1,new QTableWidgetItem(QString::number(msgIndex) + " *"));
 }
 
 // ****************** SLOTS ********************* //
@@ -308,12 +312,34 @@ void MainWindow::udpDatagramReceived(QString datagram)
 
 void MainWindow::eplConnected()
 {
-
+    for (int i=0 ; i<10 ; i++)
+    {
+        QString resp;
+        resp = epl->getStoredMessage(i+1);
+        resp.remove(0, resp.indexOf("/") + 1);
+        resp.truncate(resp.lastIndexOf("/"));
+        ui->msgTable->setItem(i, 0, new QTableWidgetItem(resp));
+    }
+    ui->ip->setEnabled(false);
+    ui->custom_ip->setEnabled(false);
+    ui->connect->setChecked(true);
+    ui->connect->setText("Déconnecter");
+    ui->statusBar->showMessage("Connecté au journal !", 5000);
+    this->updateCurrentMsgNum();
 }
 
 void MainWindow::eplDisconnected()
 {
-
+    for (int i = 0; i < 10 ; i++)
+    {
+        ui->msgTable->setVerticalHeaderItem(i,new QTableWidgetItem(QString::number(i + 1)));
+    }
+    ui->ip->setEnabled(true);
+    ui->custom_ip->setEnabled(true);
+    ui->connect->setChecked(false);
+    ui->connect->setText("Connecter");
+    ui->msgTable->clearContents();
+    ui->statusBar->showMessage("Journal déconnecté !", 5000);
 }
 
 void MainWindow::on_clrBank_clicked()

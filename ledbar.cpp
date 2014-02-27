@@ -10,6 +10,22 @@ ledBar::ledBar(QObject *parent) :
 
 // ***************** METHODS ********************** //
 
+QString ledBar::getStatus()
+{
+    return sendQuery("ETA\r\n");
+}
+
+QString ledBar::getCurrentMsgNumber()
+{
+    QString msgNum;
+    QString key;
+    key = "Texte en cours : ";
+    msgNum = getStatus();
+    msgNum.remove(0, msgNum.indexOf(key) + key.count());
+    msgNum = msgNum.left(2);
+    return msgNum;
+}
+
 void ledBar::connection(QString _ip, int port)
 {
     eplClient->connection(_ip, port);
@@ -99,12 +115,10 @@ void ledBar::clearBank(int bank)
 
 void ledBar::led_connected()
 {
-    qDebug() << "Led bar connected !";
     emit sigLedConnected();
 }
 
 void ledBar::led_disconnected()
 {
-    qDebug() << "Led bar disconnected !";
     emit sigLedDisconnected();
 }
