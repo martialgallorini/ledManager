@@ -44,6 +44,14 @@ private slots:
     void eplDisconnected();
     void on_clrBank_clicked();
 
+    void on_authorizeAll_clicked();
+
+    void on_blank_clicked();
+
+    void on_clearSchedule_clicked();
+
+    void on_saveIP_clicked();
+
 private:
     Ui::MainWindow *ui;
     UDPClient *udpReceiver;

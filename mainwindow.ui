@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ledManager v0.8.1b</string>
+   <string>ledManager v0.9b</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTabWidget" name="tabs">
@@ -191,7 +191,7 @@
        <property name="geometry">
         <rect>
          <x>2</x>
-         <y>35</y>
+         <y>40</y>
          <width>175</width>
          <height>26</height>
         </rect>
@@ -264,7 +264,7 @@
        <property name="geometry">
         <rect>
          <x>5</x>
-         <y>22</y>
+         <y>25</y>
          <width>169</width>
          <height>17</height>
         </rect>
@@ -593,19 +593,22 @@
       <property name="geometry">
        <rect>
         <x>725</x>
-        <y>-5</y>
+        <y>-3</y>
         <width>171</width>
         <height>391</height>
        </rect>
       </property>
       <property name="title">
-       <string>Plages horaires</string>
+       <string>Plages horaires simplifiées</string>
       </property>
       <widget class="QSpinBox" name="fromMTime">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>105</x>
-         <y>240</y>
+         <y>215</y>
          <width>49</width>
          <height>24</height>
         </rect>
@@ -615,10 +618,13 @@
        </property>
       </widget>
       <widget class="QSpinBox" name="fromHTime">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>35</x>
-         <y>240</y>
+         <y>215</y>
          <width>49</width>
          <height>24</height>
         </rect>
@@ -628,10 +634,13 @@
        </property>
       </widget>
       <widget class="QSpinBox" name="toMTime">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>105</x>
-         <y>265</y>
+         <y>240</y>
          <width>49</width>
          <height>24</height>
         </rect>
@@ -644,7 +653,7 @@
        <property name="geometry">
         <rect>
          <x>11</x>
-         <y>220</y>
+         <y>195</y>
          <width>131</width>
          <height>20</height>
         </rect>
@@ -660,7 +669,7 @@
        <property name="geometry">
         <rect>
          <x>90</x>
-         <y>245</y>
+         <y>220</y>
          <width>25</width>
          <height>16</height>
         </rect>
@@ -673,7 +682,7 @@
        <property name="geometry">
         <rect>
          <x>15</x>
-         <y>245</y>
+         <y>220</y>
          <width>25</width>
          <height>16</height>
         </rect>
@@ -686,7 +695,7 @@
        <property name="geometry">
         <rect>
          <x>90</x>
-         <y>270</y>
+         <y>245</y>
          <width>25</width>
          <height>16</height>
         </rect>
@@ -696,10 +705,13 @@
        </property>
       </widget>
       <widget class="QSpinBox" name="toHTime">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>35</x>
-         <y>265</y>
+         <y>240</y>
          <width>49</width>
          <height>24</height>
         </rect>
@@ -712,7 +724,7 @@
        <property name="geometry">
         <rect>
          <x>15</x>
-         <y>270</y>
+         <y>245</y>
          <width>25</width>
          <height>16</height>
         </rect>
@@ -725,7 +737,7 @@
        <property name="geometry">
         <rect>
          <x>11</x>
-         <y>130</y>
+         <y>115</y>
          <width>116</width>
          <height>20</height>
         </rect>
@@ -738,10 +750,13 @@
        </property>
       </widget>
       <widget class="QComboBox" name="fromDay">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>33</x>
-         <y>150</y>
+         <y>135</y>
          <width>111</width>
          <height>26</height>
         </rect>
@@ -786,7 +801,7 @@
        <property name="geometry">
         <rect>
          <x>16</x>
-         <y>180</y>
+         <y>165</y>
          <width>21</width>
          <height>16</height>
         </rect>
@@ -796,10 +811,13 @@
        </property>
       </widget>
       <widget class="QComboBox" name="toDay">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>34</x>
-         <y>175</y>
+         <y>160</y>
          <width>111</width>
          <height>26</height>
         </rect>
@@ -844,7 +862,7 @@
        <property name="geometry">
         <rect>
          <x>15</x>
-         <y>155</y>
+         <y>140</y>
          <width>25</width>
          <height>16</height>
         </rect>
@@ -910,6 +928,11 @@
        </item>
        <item>
         <property name="text">
+         <string>Juillet</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>Août</string>
         </property>
        </item>
@@ -935,6 +958,9 @@
        </item>
       </widget>
       <widget class="QComboBox" name="toMonth">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>33</x>
@@ -971,6 +997,11 @@
        <item>
         <property name="text">
          <string>Juin</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Juillet</string>
         </property>
        </item>
        <item>
@@ -1032,13 +1063,39 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>305</y>
+         <y>345</y>
          <width>146</width>
          <height>32</height>
         </rect>
        </property>
        <property name="text">
         <string>Effacer les plages</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="addSchedule">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>285</y>
+         <width>146</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Ajouter</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="delSchedule">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>315</y>
+         <width>146</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Supprimer</string>
        </property>
       </widget>
      </widget>
@@ -1091,37 +1148,8 @@
     </widget>
     <widget class="QWidget" name="paramTab">
      <attribute name="title">
-      <string>Paramètres</string>
+      <string>Système</string>
      </attribute>
-     <widget class="QSlider" name="ledIntensity">
-      <property name="geometry">
-       <rect>
-        <x>15</x>
-        <y>215</y>
-        <width>276</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="maximum">
-       <number>7</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>15</x>
-        <y>195</y>
-        <width>86</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Luminosité</string>
-      </property>
-     </widget>
      <widget class="QGroupBox" name="groupZone">
       <property name="enabled">
        <bool>false</bool>
@@ -1129,9 +1157,9 @@
       <property name="geometry">
        <rect>
         <x>485</x>
-        <y>0</y>
+        <y>5</y>
         <width>411</width>
-        <height>231</height>
+        <height>281</height>
        </rect>
       </property>
       <property name="title">
@@ -1141,7 +1169,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>55</y>
+         <y>66</y>
          <width>41</width>
          <height>16</height>
         </rect>
@@ -1154,7 +1182,7 @@
        <property name="geometry">
         <rect>
          <x>55</x>
-         <y>50</y>
+         <y>61</y>
          <width>49</width>
          <height>24</height>
         </rect>
@@ -1180,7 +1208,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>90</y>
+         <y>105</y>
          <width>146</width>
          <height>16</height>
         </rect>
@@ -1193,7 +1221,7 @@
        <property name="geometry">
         <rect>
          <x>240</x>
-         <y>90</y>
+         <y>105</y>
          <width>81</width>
          <height>16</height>
         </rect>
@@ -1206,7 +1234,7 @@
        <property name="geometry">
         <rect>
          <x>155</x>
-         <y>85</y>
+         <y>100</y>
          <width>81</width>
          <height>24</height>
         </rect>
@@ -1219,7 +1247,7 @@
        <property name="geometry">
         <rect>
          <x>320</x>
-         <y>85</y>
+         <y>100</y>
          <width>81</width>
          <height>24</height>
         </rect>
@@ -1232,7 +1260,7 @@
        <property name="geometry">
         <rect>
          <x>115</x>
-         <y>54</y>
+         <y>65</y>
          <width>171</width>
          <height>16</height>
         </rect>
@@ -1245,7 +1273,7 @@
        <property name="geometry">
         <rect>
          <x>5</x>
-         <y>190</y>
+         <y>215</y>
          <width>126</width>
          <height>32</height>
         </rect>
@@ -1258,7 +1286,7 @@
        <property name="geometry">
         <rect>
          <x>320</x>
-         <y>110</y>
+         <y>125</y>
          <width>81</width>
          <height>24</height>
         </rect>
@@ -1271,7 +1299,7 @@
        <property name="geometry">
         <rect>
          <x>155</x>
-         <y>110</y>
+         <y>125</y>
          <width>81</width>
          <height>24</height>
         </rect>
@@ -1284,7 +1312,7 @@
        <property name="geometry">
         <rect>
          <x>240</x>
-         <y>115</y>
+         <y>130</y>
          <width>81</width>
          <height>16</height>
         </rect>
@@ -1297,7 +1325,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>115</y>
+         <y>130</y>
          <width>146</width>
          <height>16</height>
         </rect>
@@ -1310,7 +1338,7 @@
        <property name="geometry">
         <rect>
          <x>320</x>
-         <y>135</y>
+         <y>150</y>
          <width>81</width>
          <height>24</height>
         </rect>
@@ -1323,7 +1351,7 @@
        <property name="geometry">
         <rect>
          <x>155</x>
-         <y>135</y>
+         <y>150</y>
          <width>81</width>
          <height>24</height>
         </rect>
@@ -1336,7 +1364,7 @@
        <property name="geometry">
         <rect>
          <x>240</x>
-         <y>140</y>
+         <y>155</y>
          <width>81</width>
          <height>16</height>
         </rect>
@@ -1349,7 +1377,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>140</y>
+         <y>155</y>
          <width>146</width>
          <height>16</height>
         </rect>
@@ -1362,7 +1390,7 @@
        <property name="geometry">
         <rect>
          <x>320</x>
-         <y>160</y>
+         <y>175</y>
          <width>81</width>
          <height>24</height>
         </rect>
@@ -1375,7 +1403,7 @@
        <property name="geometry">
         <rect>
          <x>155</x>
-         <y>160</y>
+         <y>175</y>
          <width>81</width>
          <height>24</height>
         </rect>
@@ -1388,7 +1416,7 @@
        <property name="geometry">
         <rect>
          <x>240</x>
-         <y>165</y>
+         <y>180</y>
          <width>81</width>
          <height>16</height>
         </rect>
@@ -1401,7 +1429,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>165</y>
+         <y>180</y>
          <width>146</width>
          <height>16</height>
         </rect>
@@ -1416,64 +1444,209 @@
        <rect>
         <x>10</x>
         <y>5</y>
-        <width>126</width>
-        <height>176</height>
+        <width>316</width>
+        <height>281</height>
        </rect>
       </property>
       <property name="title">
-       <string>Contrôle</string>
+       <string>Contrôles</string>
       </property>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QPushButton" name="freezeMode">
        <property name="geometry">
         <rect>
-         <x>5</x>
-         <y>25</y>
-         <width>116</width>
-         <height>151</height>
+         <x>210</x>
+         <y>30</y>
+         <width>106</width>
+         <height>32</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QPushButton" name="freezeMode">
-          <property name="text">
-           <string>Freeze</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="runMode">
-          <property name="text">
-           <string>Run</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="clearDevice">
-          <property name="text">
-           <string>Clear</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="rebootDevice">
-          <property name="text">
-           <string>Reboot</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <property name="text">
+        <string>Freeze</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="clearDevice">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>100</y>
+         <width>106</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Clear</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="rebootDevice">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>135</y>
+         <width>106</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Reboot</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="runMode">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>65</y>
+         <width>106</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Run</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_38">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>35</y>
+         <width>191</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Geler l'affichage :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_39">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>191</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Mode défilement :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_40">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>105</y>
+         <width>191</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Effacer toutes les mémoires :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_41">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>140</y>
+         <width>191</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Redémarrer l'afficheur :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_42">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>175</y>
+         <width>191</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Afficher toutes les mémoires :</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="authorizeAll">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>170</y>
+         <width>106</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Autoriser</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_43">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>210</y>
+         <width>196</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Eteindre (affichage au noir) :</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="blank">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>205</y>
+         <width>106</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Eteindre</string>
+       </property>
+      </widget>
+      <widget class="QSlider" name="ledIntensity">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>248</y>
+         <width>208</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="maximum">
+        <number>7</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>250</y>
+         <width>86</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Luminosité :</string>
+       </property>
       </widget>
      </widget>
      <widget class="QGroupBox" name="groupIP">
       <property name="enabled">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="geometry">
        <rect>
         <x>335</x>
         <y>5</y>
-        <width>131</width>
-        <height>226</height>
+        <width>141</width>
+        <height>281</height>
        </rect>
       </property>
       <property name="title">
@@ -1483,7 +1656,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>25</y>
+         <y>120</y>
          <width>111</width>
          <height>16</height>
         </rect>
@@ -1496,20 +1669,20 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>125</y>
+         <y>200</y>
          <width>62</width>
          <height>16</height>
         </rect>
        </property>
        <property name="text">
-        <string>Port</string>
+        <string>Passerelle</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_14">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>75</y>
+         <y>160</y>
          <width>111</width>
          <height>16</height>
         </rect>
@@ -1518,25 +1691,25 @@
         <string>Masque</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="devicePort">
+      <widget class="QLineEdit" name="deviceGateway">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>145</y>
-         <width>113</width>
+         <y>215</y>
+         <width>121</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>23</string>
+        <string/>
        </property>
       </widget>
       <widget class="QLineEdit" name="deviceIP">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>45</y>
-         <width>113</width>
+         <y>135</y>
+         <width>121</width>
          <height>21</height>
         </rect>
        </property>
@@ -1545,26 +1718,42 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>95</y>
-         <width>113</width>
+         <y>175</y>
+         <width>121</width>
          <height>21</height>
         </rect>
        </property>
        <property name="text">
-        <string>255.255.255.0</string>
+        <string/>
        </property>
       </widget>
       <widget class="QPushButton" name="saveIP">
        <property name="geometry">
         <rect>
          <x>5</x>
-         <y>185</y>
-         <width>121</width>
+         <y>245</y>
+         <width>131</width>
          <height>32</height>
         </rect>
        </property>
        <property name="text">
         <string>Enregistrer</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_44">
+       <property name="geometry">
+        <rect>
+         <x>5</x>
+         <y>15</y>
+         <width>131</width>
+         <height>101</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Un redémarrage est nécessaire pour que la modification soit prise en compte.</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>
@@ -1707,17 +1896,17 @@
        </item>
        <item>
         <property name="text">
-         <string>R0 (192.168.5.53)</string>
+         <string>RDC (192.168.5.53)</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>R+2 (192.168.5.52)</string>
+         <string>R+1 (192.168.5.52)</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>R+3 (192.168.5.51)</string>
+         <string>R+2 (192.168.5.51)</string>
         </property>
        </item>
        <item>
@@ -1802,18 +1991,13 @@
   <tabstop>fromZone3</tabstop>
   <tabstop>toZone4</tabstop>
   <tabstop>fromZone4</tabstop>
-  <tabstop>freezeMode</tabstop>
-  <tabstop>runMode</tabstop>
-  <tabstop>clearDevice</tabstop>
-  <tabstop>rebootDevice</tabstop>
-  <tabstop>devicePort</tabstop>
+  <tabstop>deviceGateway</tabstop>
   <tabstop>deviceIP</tabstop>
   <tabstop>deviceMask</tabstop>
   <tabstop>saveIP</tabstop>
   <tabstop>checkBox</tabstop>
   <tabstop>triggerPort</tabstop>
   <tabstop>triggerDisplay</tabstop>
-  <tabstop>ledIntensity</tabstop>
   <tabstop>fromZone1</tabstop>
   <tabstop>zoneNumber</tabstop>
  </tabstops>

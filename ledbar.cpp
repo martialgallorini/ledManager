@@ -75,6 +75,18 @@ void ledBar::clear()
     sendMessage("CLR\r\n");
 }
 
+void ledBar::authorizeAll()
+{
+    sendMessage("AUT\r\n");
+}
+
+void ledBar::blank()
+{
+    sendMessage("MSG00 \r\n");
+    authorize(0);
+    freeze();
+}
+
 void ledBar::brightness(int value)
 {
     QString brightness;
@@ -102,14 +114,37 @@ void ledBar::clearBank(int bank)
     QString msg;
     if (bank < 10)
     {
-        msg = "MSG0" + QString::number(bank) + " `*\r\n";
+        msg = "MSG0" + QString::number(bank) + "\r\n";
     }
     else
     {
-        msg = "MSG" + QString::number(bank) + " `*\r\n";
+        msg = "MSG" + QString::number(bank) + "\r\n";
     }
     sendMessage(msg);
 }
+
+void ledBar::clearSchedule(int bank)
+{
+    QString msg;
+    if (bank < 10)
+    {
+        msg = "PLE0" + QString::number(bank) + "\r\n";
+    }
+    else
+    {
+        msg = "PLE" + QString::number(bank) + "\r\n";
+    }
+    sendMessage(msg);
+}
+
+void ledBar::setIpAddress(QString ip, QString mask, QString gateway)
+{
+    QString msg;
+    msg = "! " + ip + mask + gateway + "\r\n";
+     sendMessage(msg);
+}
+
+
 
 // ***************** SLOTS ********************** //
 

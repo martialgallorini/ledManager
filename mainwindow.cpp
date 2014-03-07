@@ -12,6 +12,15 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(udpReceiver, SIGNAL(sigUdpDataReceived(QString)), this, SLOT(udpDatagramReceived(QString)));
     connect(epl, SIGNAL(sigLedConnected()), this, SLOT(eplConnected()));
     connect(epl, SIGNAL(sigLedDisconnected()), this, SLOT(eplDisconnected()));
+
+    connect(ui->monthSchedule, SIGNAL(toggled(bool)), ui->fromMonth, SLOT(setDisabled(bool)));
+    connect(ui->monthSchedule, SIGNAL(toggled(bool)), ui->toMonth, SLOT(setDisabled(bool)));
+    connect(ui->daySchedule, SIGNAL(toggled(bool)), ui->fromDay, SLOT(setDisabled(bool)));
+    connect(ui->daySchedule, SIGNAL(toggled(bool)), ui->toDay, SLOT(setDisabled(bool)));
+    connect(ui->timeSchedule, SIGNAL(toggled(bool)), ui->fromHTime, SLOT(setDisabled(bool)));
+    connect(ui->timeSchedule, SIGNAL(toggled(bool)), ui->fromMTime, SLOT(setDisabled(bool)));
+    connect(ui->timeSchedule, SIGNAL(toggled(bool)), ui->toHTime, SLOT(setDisabled(bool)));
+    connect(ui->timeSchedule, SIGNAL(toggled(bool)), ui->toMTime, SLOT(setDisabled(bool)));
 }
 
 MainWindow::~MainWindow()
@@ -356,6 +365,57 @@ void MainWindow::on_clrBank_clicked()
         {
             ui->statusBar->showMessage("Action impossible : sélectionnez une mémoire !", 5000);
         }
+    }
+    else
+    {
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
+    }
+}
+
+
+void MainWindow::on_authorizeAll_clicked()
+{
+    if (epl->isConnected())
+    {
+        epl->authorizeAll();
+    }
+    else
+    {
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
+    }
+}
+
+void MainWindow::on_blank_clicked()
+{
+    if (epl->isConnected())
+    {
+        epl->blank();
+    }
+    else
+    {
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
+    }
+
+}
+
+void MainWindow::on_clearSchedule_clicked()
+{
+    if (epl->isConnected())
+    {
+
+        epl->clearSchedule(ui->msgTable->currentRow() + 1);
+    }
+    else
+    {
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
+    }
+}
+
+void MainWindow::on_saveIP_clicked()
+{
+    if (epl->isConnected())
+    {
+        epl->setIpAddress(ui->deviceIP->text(), ui->deviceMask->text(), ui->deviceGateway->text());
     }
     else
     {

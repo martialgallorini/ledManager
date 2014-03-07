@@ -19,8 +19,13 @@ public:
     void run();
     void clear();
     void authorize(int bank);
+    void authorizeAll();
+    void blank();
     void brightness(int value);
     void clearBank(int bank);
+    void clearSchedule(int bank);
+    void setIpAddress(QString ip, QString mask, QString gateway);
+
     QString getStatus();
     QString getCurrentMsgNumber();
     QString getStoredMessage(int bank);

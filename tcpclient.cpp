@@ -1,5 +1,6 @@
 #include "tcpclient.h"
 #include <QDebug>
+#include <QTextCodec>
 
 
 TCPClient::TCPClient(QObject *parent) :
@@ -41,7 +42,10 @@ bool TCPClient::sendCommand(QString command)
         qWarning() << "Couldn't send command : not connected !";
         return false;
     }
-    if(socket->write(command.toLatin1()))
+
+    QTextCodec* cp1252 = QTextCodec::codecForName("cp1252");
+    QByteArray eplCommand = cp1252->fromUnicode(command); // send command in EPL330 compatible cp1252 encoded character
+    if(socket->write(eplCommand))
     {
         QString resp;
         if(socket->waitForBytesWritten(2000) && socket->waitForReadyRead((2000)))
