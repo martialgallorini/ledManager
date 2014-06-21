@@ -1,3 +1,10 @@
+/*
+Project initiated by Martial GALLORINI
+This software is free to modify and redistribute.
+Please enclose source code when redistributing.
+Feel free to contribute.
+*/
+
 #include "mainwindow.h"
 #include <QApplication>
 
