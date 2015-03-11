@@ -56,7 +56,8 @@ bool TCPClient::sendCommand(QString command)
                     return true;
             }
         }
-        qWarning() << "Waiting for data to read timed out. Nothing to read !";      }
+        qWarning() << "Waiting for data to read timed out. Nothing to read !";
+    }
     return false;
 }
 

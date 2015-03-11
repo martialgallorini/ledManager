@@ -52,6 +52,8 @@ private slots:
 
     void on_saveIP_clicked();
 
+    void on_authorizeAll_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     UDPClient *udpReceiver;

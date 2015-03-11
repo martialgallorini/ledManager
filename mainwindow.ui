@@ -1139,7 +1139,14 @@
        <item>
         <widget class="QPushButton" name="display">
          <property name="text">
-          <string>Afficher</string>
+          <string>Afficher mémoire</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="authorizeAll_2">
+         <property name="text">
+          <string>Dérouler liste</string>
          </property>
         </widget>
        </item>
@@ -1639,7 +1646,7 @@
      </widget>
      <widget class="QGroupBox" name="groupIP">
       <property name="enabled">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <property name="geometry">
        <rect>
@@ -1912,6 +1919,66 @@
        <item>
         <property name="text">
          <string>R+4 (192.168.5.50)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Auditorium (192.168.5.77)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>R+4 Toilettes F (192.168.5.55)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>R+4 Toilettes H (192.168.5.57)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>R+1 Toilettes H (192.168.5.56)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>R+2 Toilettes H (192.168.5.59)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>R+2 Toilettes F (192.168.5.66)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>R+1 Toilettes F (192.168.5.65)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>R+2 Vestiaires (192.168.5.60)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Timer GS Jardin (192.168.5.62)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Timer GS Cour (192.168.5.64)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Boutique CDR (192.168.5.67)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Boutique Plateau Media (192.168.5.72)</string>
         </property>
        </item>
       </widget>

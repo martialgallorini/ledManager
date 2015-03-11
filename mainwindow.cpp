@@ -199,6 +199,18 @@ void MainWindow::on_connect_clicked()
             case 2: epl->connection("192.168.5.52", 23); break;
             case 3: epl->connection("192.168.5.51", 23); break;
             case 4: epl->connection("192.168.5.50", 23); break;
+            case 5: epl->connection("192.168.5.77", 23); break;
+            case 6: epl->connection("192.168.5.55", 23); break;
+            case 7: epl->connection("192.168.5.57", 23); break;
+            case 8: epl->connection("192.168.5.56", 23); break;
+            case 9: epl->connection("192.168.5.59", 23); break;
+            case 10: epl->connection("192.168.5.66", 23); break;
+            case 11: epl->connection("192.168.5.65", 23); break;
+            case 12: epl->connection("192.168.5.60", 23); break;
+            case 13: epl->connection("192.168.5.62", 23); break;
+            case 14: epl->connection("192.168.5.64", 23); break;
+            case 15: epl->connection("192.168.5.67", 23); break;
+            case 16: epl->connection("192.168.5.72", 23); break;
             }
         }
         else
@@ -385,6 +397,19 @@ void MainWindow::on_authorizeAll_clicked()
     }
 }
 
+void MainWindow::on_authorizeAll_2_clicked()
+{
+    if (epl->isConnected())
+    {
+        epl->authorizeAll();
+    }
+    else
+    {
+        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
+    }
+
+}
+
 void MainWindow::on_blank_clicked()
 {
     if (epl->isConnected())
@@ -422,3 +447,4 @@ void MainWindow::on_saveIP_clicked()
         ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
     }
 }
+
