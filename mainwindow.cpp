@@ -52,15 +52,14 @@ QString MainWindow::getInAnim()
     QString inAnim;
     switch (ui->inAnim->currentIndex())
     {
-    case 0: inAnim = ""; break;
-    case 1: inAnim = "\\ed"; break;
-    case 2: inAnim = "\\eg"; break;
-    case 3: inAnim = "\\eh"; break;
-    case 4: inAnim = "\\eb"; break;
-    case 5: inAnim = "\\ec"; break;
-    case 6: inAnim = "\\ee"; break;
-    case 7: inAnim = "\\er"; break;
-    case 8: inAnim = "\\ei"; break;
+    case 0: inAnim = "\\edpc"; break;
+    case 1: inAnim = "\\egpc"; break;
+    case 2: inAnim = "\\ehpc"; break;
+    case 3: inAnim = "\\ebpc"; break;
+    case 4: inAnim = "\\ecpc"; break;
+    case 5: inAnim = "\\eepc"; break;
+    case 6: inAnim = "\\erpc"; break;
+    case 7: inAnim = "\\eipc"; break;
     }
     return inAnim;
 }
@@ -79,6 +78,7 @@ QString MainWindow::getOutAnim()
     case 6: outAnim = "\\se"; break;
     case 7: outAnim = "\\sr"; break;
     case 8: outAnim = "\\si"; break;
+
     }
     return outAnim;
 }
@@ -97,10 +97,15 @@ QString MainWindow::getTimeStop()
     {
         stopTime = "";
     }
-    else
+    else if (ui->stopTime->value() < 10)
     {
         stopTime = "\\a" + QString::number(ui->stopTime->value());
     }
+    else
+    {
+        stopTime = "\\a0" + QString::number(ui->stopTime->value());
+    }
+
     return stopTime;
 }
 
@@ -138,7 +143,7 @@ QString MainWindow::composeMessage()
 //    msg.append(ui->msgTable->currentItem()->text());
 //    msgTableText.append(QString::fromRawData(ui->msgTable->currentItem()->text(), sizeof(QChar)));
 
-    message = getMsgBank() + getFont() + getEffect() + getSpeed() + getInAnim() + "/ " + ui->msgTable->currentItem()->text() + " /" + getTimeStop() + getOutAnim() + "\r\n";
+    message = getMsgBank() + getFont() + getEffect() + getSpeed() + getInAnim() + "   " + ui->msgTable->currentItem()->text() + "   " + getTimeStop() + getOutAnim();
     return message;
 }
 
@@ -157,12 +162,12 @@ void MainWindow::on_display_clicked()
         }
         else
         {
-            ui->statusBar->showMessage("Action impossible : sélectionnez une mémoire !", 5000);
+            ui->statusBar->showMessage("Invalid command : select a bank number first !", 5000);
         }
     }
     else
     {
-        ui->statusBar->showMessage("Action impossible : veuillez d'abord vous connecter !", 5000);
+        ui->statusBar->showMessage("Invalid command : select a bank number first !", 5000);
     }
 }
 
@@ -199,7 +204,7 @@ void MainWindow::on_connect_clicked()
             case 2: epl->connection("192.168.5.52", 23); break;
             case 3: epl->connection("192.168.5.51", 23); break;
             case 4: epl->connection("192.168.5.50", 23); break;
-            case 5: epl->connection("192.168.5.77", 23); break;
+            case 5: epl->connection("192.168.5.74", 23); break;
             case 6: epl->connection("192.168.5.55", 23); break;
             case 7: epl->connection("192.168.5.57", 23); break;
             case 8: epl->connection("192.168.5.56", 23); break;
@@ -337,8 +342,8 @@ void MainWindow::eplConnected()
     {
         QString resp;
         resp = epl->getStoredMessage(i+1);
-        resp.remove(0, resp.indexOf("/") + 1);
-        resp.truncate(resp.lastIndexOf("/"));
+        resp.remove(0, resp.indexOf("   ") + 3);
+        resp.truncate(resp.indexOf("   "));
         ui->msgTable->setItem(i, 0, new QTableWidgetItem(resp));
     }
     ui->ip->setEnabled(false);
