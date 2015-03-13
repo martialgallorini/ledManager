@@ -44,19 +44,23 @@ bool TCPClient::sendCommand(QString command)
     }
 
     QTextCodec* cp1252 = QTextCodec::codecForName("cp1252");
-    QByteArray eplCommand = cp1252->fromUnicode(command); // send command in EPL330 compatible cp1252 encoded character
+    QByteArray eplCommand = cp1252->fromUnicode(command + "\r\n"); // send command in EPL330 compatible cp1252 encoded character
     if(socket->write(eplCommand))
     {
         QString resp;
         if(socket->waitForBytesWritten(2000)) {
-            while(socket->bytesAvailable() > 0 || socket->waitForReadyRead(2000))
+            while(socket->bytesAvailable() > 0 || socket->waitForReadyRead(1000))
             {
                 resp.append(QString::fromLatin1(socket->readLine()));
                 if (resp.contains("@"))
                     return true;
             }
+            qWarning() << "Waiting for data to read timed out. Nothing to read !";
         }
-        qWarning() << "Waiting for data to read timed out. Nothing to read !";
+        else
+        {
+            qWarning() << "Problem sending command to device !";
+        }
     }
     return false;
 }
@@ -74,11 +78,11 @@ QString TCPClient::sendQuery(QString query)
             socket->readLine();
         }
 
-        socket->write(query.toLatin1());
+        socket->write(query.toLatin1() + "\r\n");
 
         QString resp;
         if(socket->waitForBytesWritten(2000)) {
-            while(socket->bytesAvailable() > 0 || socket->waitForReadyRead(2000))
+            while(socket->bytesAvailable() > 0 || socket->waitForReadyRead(1000))
             {
                 resp.append(QString::fromLatin1(socket->readLine()));
                 if (resp.contains("@"))
@@ -106,7 +110,7 @@ void TCPClient::connected()
 {
     if(socket->waitForReadyRead((2000)))
     {
-        while (socket->bytesAvailable() > 0) //purge socket buffer
+        while (socket->bytesAvailable() > 0 ) //purge socket buffer
         {
             socket->readLine();
         }
