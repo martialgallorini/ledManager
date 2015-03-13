@@ -12,7 +12,7 @@ ledBar::ledBar(QObject *parent) :
 
 QString ledBar::getStatus()
 {
-    return sendQuery("ETA\r\n");
+    return sendQuery("ETA");
 }
 
 QString ledBar::getCurrentMsgNumber()
@@ -44,45 +44,44 @@ bool ledBar::isConnected()
 QString ledBar::getStoredMessage(int bank)
 {
     QString query;
-
     if (bank < 10)
     {
-        return sendQuery("COP0" + QString::number(bank) + "\r\n");
+        return sendQuery("COP0" + QString::number(bank));
     }
     else
     {
-        return sendQuery("COP" + QString::number(bank) + "\r\n");
+        return sendQuery("COP" + QString::number(bank));
     }
 }
 
 void ledBar::freeze()
 {
-    sendMessage("HLT\r\n");
+    sendMessage("HLT");
 }
 
 void ledBar::reboot()
 {
-    sendMessage("DCH\r\n");
+    sendMessage("DCH");
 }
 
 void ledBar::run()
 {
-    sendMessage("RUN\r\n");
+    sendMessage("RUN");
 }
 
 void ledBar::clear()
 {
-    sendMessage("CLR\r\n");
+    sendMessage("CLR");
 }
 
 void ledBar::authorizeAll()
 {
-    sendMessage("AUT\r\n");
+    sendMessage("AUT");
 }
 
 void ledBar::blank()
 {
-    sendMessage("MSG00 \r\n");
+    sendMessage("MSG00");
     authorize(0);
     freeze();
 }
@@ -90,7 +89,7 @@ void ledBar::blank()
 void ledBar::brightness(int value)
 {
     QString brightness;
-    brightness = "SET D=" + QString::number(value) + "\r\n";
+    brightness = "SET D=" + QString::number(value);
     sendMessage(brightness);
 }
 
@@ -106,7 +105,7 @@ QString ledBar::sendQuery(QString msg)
 
 void ledBar::authorize(int bank)
 {
-        sendMessage("AUT " + QString::number(bank) + "\r\n");
+        sendMessage("AUT " + QString::number(bank));
 }
 
 void ledBar::clearBank(int bank)
@@ -114,11 +113,11 @@ void ledBar::clearBank(int bank)
     QString msg;
     if (bank < 10)
     {
-        msg = "MSG0" + QString::number(bank) + "\r\n";
+        msg = "MSG0" + QString::number(bank);
     }
     else
     {
-        msg = "MSG" + QString::number(bank) + "\r\n";
+        msg = "MSG" + QString::number(bank);
     }
     sendMessage(msg);
 }
@@ -128,11 +127,11 @@ void ledBar::clearSchedule(int bank)
     QString msg;
     if (bank < 10)
     {
-        msg = "PLE0" + QString::number(bank) + "\r\n";
+        msg = "PLE0" + QString::number(bank);
     }
     else
     {
-        msg = "PLE" + QString::number(bank) + "\r\n";
+        msg = "PLE" + QString::number(bank);
     }
     sendMessage(msg);
 }
@@ -140,7 +139,7 @@ void ledBar::clearSchedule(int bank)
 void ledBar::setIpAddress(QString ip, QString mask, QString gateway)
 {
     QString msg;
-    msg = "! " + ip + mask + gateway + "\r\n";
+    msg = "! " + ip + mask + gateway;
      sendMessage(msg);
 }
 
